@@ -1,0 +1,158 @@
+{
+  "_embedded": {
+    "osdi:people": [
+      {
+        "_links": {
+          "osdi:attendances": {
+            "href": "https://actionnetwork.org/api/v2/people/2db268ea-021e-4e60-ac95-411112777347/attendances"
+          },
+          "osdi:donations": {
+            "href": "https://actionnetwork.org/api/v2/people/2db268ea-021e-4e60-ac95-411112777347/donations"
+          },
+          "osdi:outreaches": {
+            "href": "https://actionnetwork.org/api/v2/people/2db268ea-021e-4e60-ac95-411112777347/outreaches"
+          },
+          "osdi:signatures": {
+            "href": "https://actionnetwork.org/api/v2/people/2db268ea-021e-4e60-ac95-411112777347/signatures"
+          },
+          "osdi:submissions": {
+            "href": "https://actionnetwork.org/api/v2/people/2db268ea-021e-4e60-ac95-411112777347/submissions"
+          },
+          "osdi:taggings": {
+            "href": "https://actionnetwork.org/api/v2/people/2db268ea-021e-4e60-ac95-411112777347/taggings"
+          },
+          "self": {
+            "href": "https://actionnetwork.org/api/v2/people/2db268ea-021e-4e60-ac95-411112777347"
+          }
+        },
+        "created_date": "2017-02-01T05:22:26Z",
+        "custom_fields": {
+          "Mobile number": "2222222222",
+          "Mobile phone": "1111111111"
+        },
+        "email_addresses": [
+          {
+            "address": "jinding25+api@gmail.com",
+            "primary": true,
+            "status": "subscribed"
+          }
+        ],
+        "family_name": "Doe",
+        "given_name": "Jane",
+        "identifiers": [
+          "action_network:2db268ea-021e-4e60-ac95-411112777347"
+        ],
+        "languages_spoken": [
+          "en"
+        ],
+        "modified_date": "2017-02-09T17:27:42Z",
+        "postal_addresses": [
+          {
+            "address_lines": [
+              "1900 Pennsylvania Ave"
+            ],
+            "country": "US",
+            "locality": "Washington",
+            "location": {
+              "accuracy": "Approximate",
+              "latitude": 38.919,
+              "longitude": -77.0378
+            },
+            "postal_code": "20009",
+            "primary": true,
+            "region": "DC"
+          }
+        ]
+      },
+      {
+        "_links": {
+          "osdi:attendances": {
+            "href": "https://actionnetwork.org/api/v2/people/08419e8e-066c-4b54-9d82-bb974dd034c1/attendances"
+          },
+          "osdi:donations": {
+            "href": "https://actionnetwork.org/api/v2/people/08419e8e-066c-4b54-9d82-bb974dd034c1/donations"
+          },
+          "osdi:outreaches": {
+            "href": "https://actionnetwork.org/api/v2/people/08419e8e-066c-4b54-9d82-bb974dd034c1/outreaches"
+          },
+          "osdi:signatures": {
+            "href": "https://actionnetwork.org/api/v2/people/08419e8e-066c-4b54-9d82-bb974dd034c1/signatures"
+          },
+          "osdi:submissions": {
+            "href": "https://actionnetwork.org/api/v2/people/08419e8e-066c-4b54-9d82-bb974dd034c1/submissions"
+          },
+          "osdi:taggings": {
+            "href": "https://actionnetwork.org/api/v2/people/08419e8e-066c-4b54-9d82-bb974dd034c1/taggings"
+          },
+          "self": {
+            "href": "https://actionnetwork.org/api/v2/people/08419e8e-066c-4b54-9d82-bb974dd034c1"
+          }
+        },
+        "created_date": "2017-02-08T22:33:22Z",
+        "custom_fields": {
+          "Mobile number": "3706949828"
+        },
+        "email_addresses": [
+          {
+            "address": "seanfakeuser363@example.com",
+            "primary": true,
+            "status": "subscribed"
+          }
+        ],
+        "family_name": "FakeUser363",
+        "given_name": "Sean",
+        "identifiers": [
+          "action_network:08419e8e-066c-4b54-9d82-bb974dd034c1"
+        ],
+        "languages_spoken": [
+          "en"
+        ],
+        "modified_date": "2017-02-08T22:33:22Z",
+        "postal_addresses": [
+          {
+            "country": "US",
+            "locality": "Washington",
+            "location": {
+              "accuracy": "Approximate",
+              "latitude": 38.919,
+              "longitude": -77.0378
+            },
+            "postal_code": "20009",
+            "primary": true,
+            "region": "DC"
+          }
+        ]
+      }
+    ]
+  },
+  "_links": {
+    "curies": [
+      {
+        "href": "https://actionnetwork.org/docs/v2/{rel}",
+        "name": "osdi",
+        "templated": true
+      },
+      {
+        "href": "https://actionnetwork.org/docs/v2/{rel}",
+        "name": "action_network",
+        "templated": true
+      }
+    ],
+    "next": {
+      "href": "https://actionnetwork.org/api/v2/people?filter=postal_code+eq+20009&page=2"
+    },
+    "osdi:people": [
+      {
+        "href": "https://actionnetwork.org/api/v2/people/2db268ea-021e-4e60-ac95-411112777347"
+      },
+      {
+        "href": "https://actionnetwork.org/api/v2/people/08419e8e-066c-4b54-9d82-bb974dd034c1"
+      }
+    ],
+    "self": {
+      "href": "https://actionnetwork.org/api/v2/people"
+    }
+  },
+  "page": 1,
+  "per_page": 25
+}
