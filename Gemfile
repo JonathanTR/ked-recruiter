@@ -10,6 +10,8 @@ end
 gem 'rails', '~> 5.0.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
+# Use PostGIS for proximity queries
+gem 'activerecord-postgis-adapter', '~> 4.0.2'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use Faraday for external API requests

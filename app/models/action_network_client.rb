@@ -1,6 +1,6 @@
 class ActionNetworkClient
 	def get_people(zip, radius)
-		nearby_zips = ZipCodes.in_radius(zip, radius)
+		nearby_zips = ZipCode.near(zip, radius)
 		response = conn.get('api/v2/people') do |request|
 			request.headers['ContentType'] = 'application/json'
 			request.headers['OSDI-API-Token'] = api_key
