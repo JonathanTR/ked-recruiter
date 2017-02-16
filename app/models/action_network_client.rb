@@ -6,10 +6,6 @@ class ActionNetworkClient
     @errors = ActiveModel::Errors.new(self)
   end
 
-  def get
-    zip, radius = ['02122', 2]
-    get_people(zip, radius)
-  end
 
   def get_people(zip, radius)
     nearby_zips = ZipCode.near(zip, radius)
