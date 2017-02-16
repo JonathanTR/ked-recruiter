@@ -13,17 +13,21 @@ class ActionNetworkClient
 
   def get_people(zip, radius)
     nearby_zips = ZipCode.near(zip, radius)
-    response = conn.get('api/v2/people') do |request|
-      request.headers['ContentType'] = 'application/json'
-      request.headers['OSDI-API-Token'] = api_key
-      request.params = { filter: "postal_code eq #{nearby_zips.join(' or')}" }
-    end
-    if response.success?
-      { status: 200, people: normalize_response(JSON.parse(response.body)) }
-    elsif !!(response.body[0..10] =~ /^<!DOCTYPE/)
-      { status: response.status, error: response.reason_phrase }
-    else
-      { status: response.status, error: JSON.parse(response.body)['error'] }
+    begin
+      response = conn.get('api/v2/people') do |request|
+        request.headers['ContentType'] = 'application/json'
+        request.headers['OSDI-API-Token'] = api_key
+        request.params = { filter: "postal_code eq #{nearby_zips.join(' or')}" }
+      end
+      if response.success?
+        { status: 200, people: normalize_response(JSON.parse(response.body)) }
+      elsif !!(response.body[0..10] =~ /^<!DOCTYPE/)
+        { status: response.status, error: response.reason_phrase }
+      else
+        { status: response.status, error: JSON.parse(response.body)['error'] }
+      end
+    rescue => error
+      { status: 0, error: error.message }
     end
   end
 

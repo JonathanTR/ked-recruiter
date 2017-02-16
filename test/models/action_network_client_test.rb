@@ -34,6 +34,16 @@ class ActionNetworkClientTest < ActiveSupport::TestCase
     actual = response[:error]
     assert_equal(expected, actual)
   end
+
+  test '#get_people handles a general error raised in call' do
+    stub_action_network_general_error
+    client = ActionNetworkClient.new
+    response = client.get_people('02122', 2)
+
+    expected = 'General Error'
+    actual = response[:error]
+    assert_equal(expected, actual)
+  end
 end
 
 def stub_action_network_success
@@ -56,5 +66,12 @@ def stub_action_network_500_error
   stub_request(:get, /https:\/\/actionnetwork.org\/api\/v2\/people.+/).to_return({
     status: [500, 'Internal Server Error'],
     body: error_fixture,
+  })
+end
+
+def stub_action_network_general_error
+  stub_request(:get, /https:\/\/actionnetwork.org\/api\/v2\/people.+/).to_return({
+    status: [500, 'Internal Server Error'],
+    exception: 'General Error'
   })
 end
