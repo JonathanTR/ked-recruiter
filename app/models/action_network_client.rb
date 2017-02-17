@@ -1,6 +1,4 @@
 class ActionNetworkClient
-
-
   def request_people(zips, page = 1)
     begin
       response = conn.get('api/v2/people') do |request|

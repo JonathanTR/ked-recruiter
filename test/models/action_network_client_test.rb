@@ -1,6 +1,9 @@
 require 'test_helper'
+require 'lib/action_network_stubs'
 
 class ActionNetworkClientTest < ActiveSupport::TestCase
+  include ActionNetworkStubs
+
   test '#request_people returns an array of people with contact details' do
     stub_action_network_success
     client = ActionNetworkClient.new
@@ -44,34 +47,4 @@ class ActionNetworkClientTest < ActiveSupport::TestCase
     actual = response[:error]
     assert_equal(expected, actual)
   end
-end
-
-def stub_action_network_success
-  success_fixture = file_fixture('action_network_people_sucess.json')
-  stub_request(:get, /https:\/\/actionnetwork.org\/api\/v2\/people.+/).to_return({
-    status: 200,
-    body: success_fixture
-  })
-end
-
-def stub_action_network_400_error
-  stub_request(:get, /https:\/\/actionnetwork.org\/api\/v2\/people.+/).to_return({
-    status: 403,
-    body: {"error"=>"API Key invalid or not present abdefg"}.to_json
-  })
-end
-
-def stub_action_network_500_error
-  error_fixture = file_fixture('action_network_people_error_500.html')
-  stub_request(:get, /https:\/\/actionnetwork.org\/api\/v2\/people.+/).to_return({
-    status: [500, 'Internal Server Error'],
-    body: error_fixture,
-  })
-end
-
-def stub_action_network_general_error
-  stub_request(:get, /https:\/\/actionnetwork.org\/api\/v2\/people.+/).to_return({
-    status: [500, 'Internal Server Error'],
-    exception: 'General Error'
-  })
 end
