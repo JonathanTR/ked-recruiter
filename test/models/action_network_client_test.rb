@@ -1,10 +1,10 @@
 require 'test_helper'
 
 class ActionNetworkClientTest < ActiveSupport::TestCase
-  test '#get_people returns an array of people with contact details' do
+  test '#request_people returns an array of people with contact details' do
     stub_action_network_success
     client = ActionNetworkClient.new
-    response = client.get_people('02122', 2)
+    response = client.request_people(['02122'])
 
     assert_equal(response[:people].class, Array)
     response[:people].each do |person|
@@ -15,30 +15,30 @@ class ActionNetworkClientTest < ActiveSupport::TestCase
     end
   end
 
-  test '#get_people handles a JSON error from ActionNetwork' do
+  test '#request_people handles a JSON error from ActionNetwork' do
     stub_action_network_400_error
     client = ActionNetworkClient.new
-    response = client.get_people('02122', 2)
+    response = client.request_people(['02122'])
 
     expected = 'API Key invalid or not present abdefg'
     actual = response[:error]
     assert_equal(expected, actual)
   end
 
-  test '#get_people handles an HTML error from ActionNetwork' do
+  test '#request_people handles an HTML error from ActionNetwork' do
     stub_action_network_500_error
     client = ActionNetworkClient.new
-    response = client.get_people('02122', 2)
+    response = client.request_people(['02122'])
 
     expected = 'Internal Server Error'
     actual = response[:error]
     assert_equal(expected, actual)
   end
 
-  test '#get_people handles a general error raised in call' do
+  test '#request_people handles a general error raised in call' do
     stub_action_network_general_error
     client = ActionNetworkClient.new
-    response = client.get_people('02122', 2)
+    response = client.request_people(['02122'])
 
     expected = 'General Error'
     actual = response[:error]
