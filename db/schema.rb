@@ -10,11 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170215201159) do
+ActiveRecord::Schema.define(version: 20170216205956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "people", force: :cascade do |t|
+    t.string   "action_network_id",                 null: false
+    t.boolean  "checked_out",       default: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.index ["action_network_id"], name: "index_people_on_action_network_id", unique: true, using: :btree
+  end
 
   create_table "zip_codes", force: :cascade do |t|
     t.string    "code"
