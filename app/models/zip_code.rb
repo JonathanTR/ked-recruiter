@@ -6,7 +6,7 @@ class ZipCode < ApplicationRecord
       "ST_DWITHIN(zip_codes.coordinates, 'POINT(:lon :lat)', :distance)", {
       lon: zip.coordinates.x,
       lat: zip.coordinates.y,
-      distance: miles * METERS_PER_MILE
+      distance: miles.to_i * METERS_PER_MILE
     }).map(&:code)
   end
 end
