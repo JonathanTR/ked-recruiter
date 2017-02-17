@@ -36,13 +36,18 @@ class ActionNetworkClient
   def normalize_person(hash)
     person = hash.deep_symbolize_keys
     {
-      given_name:       person[:given_name],
-      family_name:      person[:family_name],
-      email_address:    primary_email_for(person),
-      phone_number:     person[:custom_fields][:"Mobile number"],
-      address:          person[:postal_addresses],
-      languages_spoken: person[:languages_spoken],
+      action_network_id:  action_network_id_for(person),
+      address:            person[:postal_addresses],
+      email_address:      primary_email_for(person),
+      family_name:        person[:family_name],
+      given_name:         person[:given_name],
+      languages_spoken:   person[:languages_spoken],
+      phone_number:       person[:custom_fields][:"Mobile number"],
     }
+  end
+
+  def action_network_id_for(symbolized_person)
+    symbolized_person[:identifiers].find{|id| !!(id =~ /^action_network\:/)}
   end
 
   def primary_email_for(symbolized_person)
