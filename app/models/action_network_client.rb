@@ -1,19 +1,12 @@
 class ActionNetworkClient
-  extend ActiveModel::Naming
-  attr_reader :errors
-
-  def initialize
-    @errors = ActiveModel::Errors.new(self)
-  end
 
 
-  def get_people(zip, radius)
-    nearby_zips = ZipCode.near(zip, radius)
+  def request_people(zips, page = 1)
     begin
       response = conn.get('api/v2/people') do |request|
         request.headers['ContentType'] = 'application/json'
         request.headers['OSDI-API-Token'] = api_key
-        request.params = { filter: "postal_code eq #{nearby_zips.join(' or')}" }
+        request.params = { filter: "postal_code eq #{zips.join(' or ')}", page: page }
       end
       if response.success?
         { status: 200, people: normalize_response(JSON.parse(response.body)) }
@@ -26,7 +19,6 @@ class ActionNetworkClient
       { status: 0, error: error.message }
     end
   end
-
 
   def normalize_response(response)
     list = response['_embedded']['osdi:people']
