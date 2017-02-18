@@ -18,6 +18,4 @@ $ rake db:seed
 ```
 for it to work.
 
-Local secrets should be stored in a secrets.local.yml file. Their shape can be
-determined from their use in `config/secrets.yml`.
-
+Local secrets should be stored in an env.local.yml file.

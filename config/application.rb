@@ -23,13 +23,11 @@ module Recruiter
     # -- all .rb files in that directory are automatically loaded.
 
     # Load secrets from untracked local file
-    ::SECRETS = {}
     config.before_configuration do
-      puts 'before_configuration'
-      env_file = File.join(Rails.root, 'config', 'secrets.local.yml')
+      env_file = File.join(Rails.root, 'config', 'env.local.yml')
       if File.exists?(env_file)
         YAML.load(File.open(env_file)).each do |key, value|
-          SECRETS[key.to_s] = value
+          ENV[key.to_s] = value
         end
       end
     end
