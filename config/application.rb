@@ -22,6 +22,16 @@ module Recruiter
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    # Load environment variables
+    config.before_configuration do
+      env_file = File.join(Rails.root, 'config', 'env.local.yml')
+      if File.exists?(env_file)
+        YAML.load(File.open(env_file)).each do |key, value|
+          ENV[key.to_s] = value
+        end
+      end
+    end
+
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
