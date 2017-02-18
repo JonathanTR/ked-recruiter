@@ -22,12 +22,14 @@ module Recruiter
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Load environment variables
+    # Load secrets from untracked local file
+    ::SECRETS = {}
     config.before_configuration do
-      env_file = File.join(Rails.root, 'config', 'env.local.yml')
+      puts 'before_configuration'
+      env_file = File.join(Rails.root, 'config', 'secrets.local.yml')
       if File.exists?(env_file)
         YAML.load(File.open(env_file)).each do |key, value|
-          ENV[key.to_s] = value
+          SECRETS[key.to_s] = value
         end
       end
     end
