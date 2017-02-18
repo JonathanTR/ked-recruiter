@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  resources :people, only: [:index]
+  get '/people', action: :index, controller: 'people'
+  post '/people', action: :update, controller: 'people'
 end
