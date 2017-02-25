@@ -9,20 +9,39 @@ def progress_bar(current:, total:, bar_length:)
   print ('-' * length) + "> #{percent.to_i}%"
 end
 
+def turn_off_logs
+  old_level = ActiveRecord::Base.logger.level
+  ActiveRecord::Base.logger.level = Logger::ERROR
+end
+
+def turn_on_logs(old_level)
+  ActiveRecord::Base.logger.level = old_level
+end
+
+def bulk_insert_zips(codes, coordinates)
+  """
+  INSERT INTO zip_codes (code, coordinates)
+    SELECT unnest(array[ #{codes.join(',')} ]),
+           unnest(array[ #{coordinates.join(',')} ])
+  """
+end
+
 def create_zips
+  old_level = turn_off_logs
   puts "== Initializing ZipCodes ======================================================"
+  ZipCode.delete_all
   idx = 0
+  codes, coordinates = [], []
   CSV.foreach(ZIP_DATA_PATH, {headers: true}) do |row|
-    ZipCode.find_or_create_by(code: row['code']) do |zip|
-      latitude = row['latitude'].to_f
-      longitude = row['longitude'].to_f
-      zip.coordinates = FACTORY.point(longitude,latitude)
-    end
     idx += 1
     progress_bar(current: idx, total: 33134, bar_length: 73)
+    codes << "'#{row['ZIP']}'"
+    coordinates << "ST_GeomFromText('#{FACTORY.point(row['LAT'], row['LNG']).as_text}')"
   end
-  puts
-  puts "== ZipCodes Loaded ============================================================"
+  ActiveRecord::Base.connection.execute(bulk_insert_zips(codes, coordinates))
+  puts "\n== ZipCodes Loaded ============================================================"
+  turn_on_logs(old_level)
 end
+
 
 create_zips
