@@ -1,0 +1,15 @@
+version: '2'
+services:
+  db:
+    image: mdillon/postgis
+    container_name: db
+  web:
+    image: jtr1/ked-recruiter-app
+    command: rails s -p 3000 -e production
+    container_name: recruiter-web
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
