@@ -1,10 +1,23 @@
 FROM rails:onbuild
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev curl libgeos-dev libgeos++-dev libgdal-dev libproj-dev
+
+# Include linux dependencies for RGeo
+RUN apt-get update -qq && apt-get install -y \
+  build-essential \
+  curl \
+  libgdal-dev \
+  libgeos-dev \
+  libgeos++-dev \
+  libpq-dev \
+  libproj-dev
+
+# Copy App Files
 RUN mkdir /app
 WORKDIR /app
-ADD Gemfile /app/Gemfile
-ADD Gemfile.lock /app/Gemfile.lock
-RUN bundle install
-RUN gem uninstall --force 'rgeo' && gem install 'rgeo'
 ADD . /app
+
+# RGeo gem must be reinstalled in order to find its dependencies
+RUN gem uninstall --force 'rgeo' && gem install 'rgeo'
+
+# Set up
+RUN bundle install
 CMD rails server -e production
