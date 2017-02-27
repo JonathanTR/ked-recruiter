@@ -4,7 +4,7 @@ services:
     image: mdillon/postgis
     container_name: db
   web:
-    image: jtr1/ked-recruiter-app
+    image: jtr1/ked-recruiter-api
     command: rails s -p 3000 -e production
     container_name: recruiter-web
     volumes:
