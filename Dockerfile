@@ -1,4 +1,5 @@
 FROM rails:onbuild
+MAINTAINER jonathan.d.reilly@gmail.com
 
 # Include linux dependencies for RGeo
 RUN apt-get update -qq && apt-get install -y \
@@ -20,4 +21,5 @@ RUN gem uninstall --force 'rgeo' && gem install 'rgeo'
 
 # Set up
 RUN bundle install
-CMD rails server -e production
+ENTRYPOINT ["bundle", "exec"]
+CMD rails server
