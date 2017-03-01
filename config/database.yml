@@ -1,8 +1,9 @@
 default: &default
   adapter: postgis
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: postgres
+  user: postgres
+  host: db
+  pool: 5
 
 development:
   <<: *default
@@ -15,4 +16,3 @@ test:
 production:
   <<: *default
   database: recruiter_production
-  host: db
