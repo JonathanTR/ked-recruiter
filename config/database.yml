@@ -1,8 +1,6 @@
 default: &default
   adapter: postgis
   encoding: unicode
-  user: postgres
-  host: db
   pool: 5
 
 development:
@@ -16,3 +14,5 @@ test:
 production:
   <<: *default
   database: recruiter_production
+  user: postgres
+  host: db
