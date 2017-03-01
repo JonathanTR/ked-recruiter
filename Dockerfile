@@ -9,12 +9,13 @@ RUN apt-get update -qq && apt-get install -y \
   libgeos-dev \
   libgeos++-dev \
   libpq-dev \
-  libproj-dev
+  libproj-dev \
+  vim
 
 # Copy App Files
 RUN mkdir /app
 WORKDIR /app
-ADD . /app
+COPY . /app
 
 # RGeo gem must be reinstalled in order to find its dependencies
 RUN gem uninstall --force 'rgeo' && gem install 'rgeo'
