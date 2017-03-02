@@ -19,3 +19,14 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+### CLIENT APP
+# dependencies
+node_modules
+
+# production
+build
+
+# misc
+.DS_Store
+npm-debug.log
