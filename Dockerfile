@@ -10,6 +10,7 @@ RUN apt-get update -qq && apt-get install -y \
   libgeos++-dev \
   libpq-dev \
   libproj-dev \
+  lsof \
   vim
 
 # Copy App Files
