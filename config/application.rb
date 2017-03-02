@@ -22,12 +22,14 @@ module Recruiter
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Load secrets from untracked local file
+    # Load secrets from untracked local file, named development.env, production.env, etc.
     config.before_configuration do
-      env_file = File.join(Rails.root, 'config', 'env.local.yml')
+      env_file = File.join(Rails.root, 'config', "#{Rails.env.downcase}.env")
       if File.exists?(env_file)
-        YAML.load(File.open(env_file)).each do |key, value|
-          ENV[key.to_s] = value
+        File.readlines(env_file).each do |line|
+          next if line[0] == '#'
+          key, value = line.chomp.split('=')
+          ENV[key] = value
         end
       end
     end
