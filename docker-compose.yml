@@ -8,15 +8,17 @@ services:
     command: rails s -p 3000 -e production
     container_name: recruiter-web
     env_file: ./config/production.env
-    ports:
-      - "3000:3000"
     depends_on:
       - db
+    ports:
+      - "3000:3000"
   client:
     image: jtr1/ked-recruiter-client
     command: npm start
     container_name: recruiter-client
-    ports:
-      - "80:3000"
     depends_on:
       - web
+    volumes:
+      - ./client:/usr/src/app
+    ports:
+      - "80:3000"
