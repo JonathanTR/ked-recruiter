@@ -16,6 +16,8 @@ gem 'activerecord-postgis-adapter', '~> 4.0.2'
 gem 'puma', '~> 3.0'
 # Use Faraday for external API requests
 gem 'faraday', '~> 0.11.0'
+# For handling CORS requests
+gem 'rack-cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
