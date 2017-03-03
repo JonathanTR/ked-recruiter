@@ -12,6 +12,8 @@ services:
       - db
     ports:
       - "3000:3000"
+    volumes:
+      - .:/app
   client:
     image: jtr1/ked-recruiter-client
     command: npm start
