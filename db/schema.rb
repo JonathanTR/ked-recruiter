@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170218074942) do
+ActiveRecord::Schema.define(version: 20170216205956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,9 +26,9 @@ ActiveRecord::Schema.define(version: 20170218074942) do
 
   create_table "zip_codes", force: :cascade do |t|
     t.string    "code"
-    t.geography "coordinates", limit: {:srid=>4326, :type=>"point", :geographic=>true}
+    t.geography "lonlat", limit: {:srid=>4326, :type=>"point", :geographic=>true}
     t.index ["code"], name: "index_zip_codes_on_code", using: :btree
-    t.index ["coordinates"], name: "index_zip_codes_on_coordinates", using: :btree
+    t.index ["lonlat"], name: "index_zip_codes_on_lonlat", using: :gist
   end
 
 end
