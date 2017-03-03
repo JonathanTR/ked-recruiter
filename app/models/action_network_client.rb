@@ -4,7 +4,7 @@ class ActionNetworkClient
       response = conn.get('api/v2/people') do |request|
         request.headers['ContentType'] = 'application/json'
         request.headers['OSDI-API-Token'] = api_key
-        request.params = { filter: "postal_code eq #{zips.join(' or ')}", page: page }
+        request.params = { filter: "postal_code eq #{zips.join(' or postal_code eq ')}", page: page }
       end
       if response.success?
         { status: 200, people: normalize_response(JSON.parse(response.body)) }
