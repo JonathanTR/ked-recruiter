@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import './App.css';
-import Contact from './components/contact';
+import Contact from './components/Contact';
 
 class App extends Component {
   state = {
@@ -16,7 +16,7 @@ class App extends Component {
     .then((data) => {
       return data.json()
     }).then((response) => {
-      this.setState({records: response.people})
+      this.setState({contacts: response.people})
     })
   }
 
