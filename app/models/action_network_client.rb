@@ -26,9 +26,9 @@ class ActionNetworkClient
   def normalize_person(hash)
     person = hash.deep_symbolize_keys
     {
-      action_network_id:  action_network_id_for(person),
-      address:            person[:postal_addresses],
-      email_address:      primary_email_for(person),
+      action_network_id:  get_action_network_id(person[:identifiers]),
+      address:            filter_keys(get_primary(person[:postal_addresses]), :locality, :region, :country, :postal_code),
+      email_address:      filter_keys(get_primary(person[:email_addresses]), :address),
       family_name:        person[:family_name],
       given_name:         person[:given_name],
       languages_spoken:   person[:languages_spoken],
@@ -36,19 +36,17 @@ class ActionNetworkClient
     }
   end
 
-  def action_network_id_for(symbolized_person)
-    symbolized_person[:identifiers].find{|id| !!(id =~ /^action_network\:/)}
+  def get_action_network_id(identifiers)
+    identifiers.find{|id| !!(id =~ /^action_network\:/)}
   end
 
-  def primary_email_for(symbolized_person)
-    addresses = symbolized_person[:email_addresses]
-    if primary = addresses.find{|address| address[:primary]}
-      primary[:address]
-    else
-      nil
-    end
+  def filter_keys(hash, *key_list)
+    key_list.length == 1 ? hash[key_list[0]] : hash.slice(*key_list)
   end
 
+  def get_primary(elements)
+    elements.find{|element| element[:primary]}
+  end
 
   private
 
