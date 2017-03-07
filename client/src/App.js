@@ -1,30 +1,62 @@
 import React, { Component } from 'react';
+
 import './App.css';
+import Contact from './components/contact';
 
 class App extends Component {
   state = {
-    contacts: []
+    contacts: [],
+    inputError: false,
+    zipValue: '',
   };
 
+  fetchPeople = (code) => {
+    const url = `http://localhost:3001/people?zip=${code}&radius=25`
+    fetch(url)
+    .then((data) => {
+      return data.json()
+    }).then((response) => {
+      this.setState({records: response.people})
+    })
+  }
+
+  handleZipCodeBlur = (e) => {
+    this.setState({inputError: false});
+  }
+
+  handleZipCodeInput = (e) => {
+    e.preventDefault()
+    this.setState({zipValue: e.target.value, inputError: false});
+  }
+
+  handleZipCodeSubmit = (e) => {
+    e.preventDefault();
+    const code = this.state.zipValue;
+    if (!!code.match(/\d{5}/)) {
+      this.fetchPeople(code);
+    } else {
+      this.setState({inputError: true});
+    };
+  }
+
   render() {
-    const { contacts } = this.state;
+    const { contacts, inputError, zipValue } = this.state;
 
     return (
       <div className="App">
         <h1>#KNOCKEVERYDOOR</h1>
-        <form data-test='zipInput'>
-          <input placeholder='Enter your zipcode' />
+        <form data-test='zipForm' onSubmit={this.handleZipCodeSubmit}>
+          <input className={inputError ? 'zip-input__error' : ''}
+                 onChange={this.handleZipCodeInput}
+                 onBlur={this.handleZipCodeBlur}
+                 placeholder='Enter your zipcode'
+                 value={zipValue}>
+          </input>
           <button type='submit'>submit</button>
         </form>
-        {contacts.length > 0 ?
-          contacts.map((contact, idx) => {
-            return(
-              <div data-test='contact' key={idx}>
-                {contact}
-              </div>
-            )
-          })
-        : null}
+        {contacts.map((contact, idx) =>
+          <Contact contact={contact} key={idx}/>
+        )}
       </div>
     );
   }
