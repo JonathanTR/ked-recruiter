@@ -55,7 +55,10 @@ class App extends Component {
           <button type='submit'>submit</button>
         </form>
         {contacts.map((contact, idx) =>
-          <Contact contact={contact} key={idx}/>
+          <div key={idx}>
+            <Contact contact={contact} />
+            <br/>
+          </div>
         )}
       </div>
     );
