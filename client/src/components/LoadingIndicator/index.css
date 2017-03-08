@@ -15,7 +15,6 @@
 
 .loading-indicator {
   width: 100%;
-  padding-top: 5px;
   position: relative;
 }
 
@@ -23,7 +22,7 @@
   animation: waiting 500ms linear infinite;
   content: '';
   width: 10%;
-  height: 1px;
+  height: 3px;
   position: absolute;
-  background: black;
+  background: DeepSkyBlue;
 }

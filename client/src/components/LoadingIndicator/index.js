@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './LoadingIndicator.css';
+import './index.css';
 
 class LoadingIndicator extends Component {
   render () {

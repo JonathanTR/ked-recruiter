@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { mount, shallow } from 'enzyme';
 
-import Contact from './Contact';
+import Contact from './index';
 
 
 describe('Contact', () => {
