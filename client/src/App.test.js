@@ -65,6 +65,14 @@ describe('Zip Code input', () => {
 });
 
 describe('Display Queued Contacts', () => {
+  it('hides the zip code form when displaying contacts', () => {
+    const app = mount(<App />);
+    app.setState({contacts: ['one','two']});
+    const actual = app.find("[data-test='zipForm']").length;
+    const expected = 0;
+    expect(actual).toEqual(expected);
+  });
+
   it('renders no contacts, if there are none', () => {
     const app = mount(<App />);
     app.setState({contacts: []});

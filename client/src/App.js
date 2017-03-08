@@ -50,8 +50,9 @@ class App extends Component {
     return (
       <div className="App">
         <h1>#KNOCKEVERYDOOR</h1>
-        <form data-test='zipForm' onSubmit={this.handleZipCodeSubmit}>
-          <input className={inputError ? 'zip-input__error' : ''}
+        {contacts.length === 0 ?
+        <form className='zip-form' data-test='zipForm' onSubmit={this.handleZipCodeSubmit}>
+          <input className={inputError ? 'zip-form__error' : ''}
                  onChange={this.handleZipCodeInput}
                  onBlur={this.handleZipCodeBlur}
                  placeholder='Enter your zipcode'
@@ -62,6 +63,7 @@ class App extends Component {
             <LoadingIndicator />
           : null}
         </form>
+        : null}
         {contacts.map((contact, idx) =>
           <div key={idx}>
             <Contact contact={contact} />
