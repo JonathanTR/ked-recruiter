@@ -1,0 +1,29 @@
+@-webkit-keyframes waiting {
+  0% {
+    left: 0px;
+    width: 0%;
+  }
+  50% {
+    left: 50%;
+    width: 50%;
+  }
+  100% {
+    left: 100%;
+    width: 0%;
+  }
+}
+
+.loading-indicator {
+  width: 100%;
+  padding-top: 5px;
+  position: relative;
+}
+
+.loading-indicator::before {
+  animation: waiting 500ms linear infinite;
+  content: '';
+  width: 10%;
+  height: 1px;
+  position: absolute;
+  background: black;
+}

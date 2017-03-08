@@ -2,6 +2,10 @@
   text-align: center;
 }
 
-.zip-input__error {
+.zip-form {
+  display: inline-block;
+}
+
+.zip-form__error {
   background: lightsalmon;
 }

@@ -49,7 +49,16 @@ describe('Zip Code input', () => {
     app.find("[data-test='zipForm']").simulate('submit');
 
     const zipForm = app.find("[data-test='zipForm']");
-    const actual = zipForm.find('.zip-input__error').length;
+    const actual = zipForm.find('.zip-form__error').length;
+    const expected = 1;
+    expect(actual).toEqual(expected);
+  });
+
+  it('shows a loading indicator while fetching contacts', () => {
+    const app = mount(<App />);
+    app.setState({loading: true});
+
+    const actual = app.find("[data-test='loadingIndicator']").length;
     const expected = 1;
     expect(actual).toEqual(expected);
   });

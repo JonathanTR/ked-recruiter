@@ -2,21 +2,26 @@ import React, { Component } from 'react';
 
 import './App.css';
 import Contact from './components/Contact';
+import LoadingIndicator from './components/LoadingIndicator';
 
 class App extends Component {
   state = {
     contacts: [],
     inputError: false,
+    loading: false,
     zipValue: '',
   };
 
   fetchPeople = (code) => {
+    this.setState({loading: true})
     const url = `http://localhost:3001/people?zip=${code}&radius=25`
     fetch(url)
-    .then((data) => {
-      return data.json()
-    }).then((response) => {
-      this.setState({contacts: response.people})
+    .then((data) => data.json())
+    .then((response) => {
+      this.setState({
+        contacts: response.people,
+        loading: false
+      })
     })
   }
 
@@ -40,7 +45,7 @@ class App extends Component {
   }
 
   render() {
-    const { contacts, inputError, zipValue } = this.state;
+    const { contacts, inputError, loading, zipValue } = this.state;
 
     return (
       <div className="App">
@@ -53,6 +58,9 @@ class App extends Component {
                  value={zipValue}>
           </input>
           <button type='submit'>submit</button>
+          {loading ?
+            <LoadingIndicator />
+          : null}
         </form>
         {contacts.map((contact, idx) =>
           <div key={idx}>
