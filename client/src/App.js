@@ -9,17 +9,10 @@ class App extends Component {
     contacts: [],
   };
 
-  fetchPeople = (code) => {
-    this.setState({loading: true})
-    const url = `http://localhost:3001/people?zip=${code}&radius=25`
-    fetch(url)
-    .then((data) => data.json())
-    .then((response) => {
-      this.setState({
-        contacts: response.people,
-        loading: false
-      })
-    })
+  setContacts = (list) => {
+    this.setState({
+      contacts: list
+    });
   }
 
   render() {
@@ -29,7 +22,7 @@ class App extends Component {
       <div className="App">
         <h1>#KNOCKEVERYDOOR</h1>
         {contacts.length === 0 ?
-          <ZipForm onZipCodeSubmit={this.fetchPeople} />
+          <ZipForm onFetchContacts={this.setContacts} />
         : null}
         {contacts.map((contact, idx) =>
           <div key={idx}>

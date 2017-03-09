@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import Client from '../../api/Client';
 import LoadingIndicator from '../LoadingIndicator';
 
 
@@ -8,6 +9,18 @@ class ZipForm extends Component {
     inputError: false,
     loading: false,
     zipValue: '',
+  }
+
+  fetchContacts = (code) => {
+    this.setState({loading: true})
+    Client.getPeople(code, (response) => {
+      if (response.error) {
+        this.setState({errorMessage: response.error, loading: false});
+      } else {
+        this.setState({loading: false});
+        this.props.onFetchContacts(response.people);
+      };
+    });
   }
 
   handleZipCodeInput = (e) => {
@@ -23,7 +36,7 @@ class ZipForm extends Component {
     e.preventDefault();
     const code = this.state.zipValue;
     if (!!code.match(/\d{5}/)) {
-      this.props.onZipCodeSubmit(code);
+      this.fetchContacts(code);
     } else {
       this.setState({inputError: true});
     };

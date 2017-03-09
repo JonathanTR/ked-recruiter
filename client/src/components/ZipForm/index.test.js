@@ -3,22 +3,15 @@ import ReactDOM from 'react-dom';
 import { mount, shallow } from 'enzyme';
 
 import ZipForm from './index';
+import Client from '../../api/Client';
 
+jest.mock('../../api/Client')
 
-describe('Zip Code input', () => {
-  it('calls #onZipCodeSubmit when a zipCode is submitted', () => {
-    const form = mount(<ZipForm />);
-    const spy = jest.fn();
-    form.setProps({onZipCodeSubmit: spy})
-    form.setState({zipValue: '02122'});
-    form.find("[data-test='zipForm']").simulate('submit');
-    expect(spy).toHaveBeenCalled();
-  });
-
+describe('ZipForm input', () => {
   it('does not call #onZipCodeSubmit if no zip is present', () => {
     const form = mount(<ZipForm />);
     const spy = jest.fn();
-    form.setProps({onZipCodeSubmit: spy})
+    form.setProps({onFetchContacts: spy})
     form.setState({zipValue: ''});
     form.find("[data-test='zipForm']").simulate('submit');
     expect(spy).not.toHaveBeenCalled();
@@ -39,6 +32,42 @@ describe('Zip Code input', () => {
     form.setState({loading: true});
 
     const actual = form.find("[data-test='loadingIndicator']").length;
+    const expected = 1;
+    expect(actual).toEqual(expected);
+  });
+});
+
+describe('ZipForm submit', () => {
+  const setup = (props) => {
+    const form = mount(<ZipForm {...props} />);
+    const input = form.find("[data-test='zipInput']")
+    input.simulate('change', {target: {value: '02122'}})
+    form.simulate('submit');
+
+    const invocationArgs = Client.getPeople.mock.calls[0];
+    const apiCallback = invocationArgs[1];
+    return { form, apiCallback };
+  }
+
+  afterEach(() => {
+    Client.getPeople.mockClear();
+  });
+
+  it('Calls #onFetchContacts with successful API response', () => {
+    const spy = jest.fn()
+    const { form, apiCallback } = setup({onFetchContacts: spy});
+    const response = { people: ['Anton', 'Alycia'] };
+    apiCallback(response);
+
+    expect(spy).toHaveBeenCalledWith(response.people)
+  });
+
+  it('Shows an error message if it gets one from the API', () => {
+    const { form, apiCallback } = setup();
+    const response = { error: 'Internal Server Error' };
+    apiCallback(response);
+
+    const actual = form.find("[data-test='zipError']").length;
     const expected = 1;
     expect(actual).toEqual(expected);
   });
