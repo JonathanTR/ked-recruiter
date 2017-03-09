@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 
 import './App.css';
 import Contact from './components/Contact';
-import LoadingIndicator from './components/LoadingIndicator';
+import ZipForm from './components/ZipForm';
 
 class App extends Component {
   state = {
     contacts: [],
-    inputError: false,
-    loading: false,
-    zipValue: '',
   };
 
   fetchPeople = (code) => {
@@ -25,44 +22,14 @@ class App extends Component {
     })
   }
 
-  handleZipCodeBlur = (e) => {
-    this.setState({inputError: false});
-  }
-
-  handleZipCodeInput = (e) => {
-    e.preventDefault()
-    this.setState({zipValue: e.target.value, inputError: false});
-  }
-
-  handleZipCodeSubmit = (e) => {
-    e.preventDefault();
-    const code = this.state.zipValue;
-    if (!!code.match(/\d{5}/)) {
-      this.fetchPeople(code);
-    } else {
-      this.setState({inputError: true});
-    };
-  }
-
   render() {
-    const { contacts, inputError, loading, zipValue } = this.state;
+    const { contacts } = this.state;
 
     return (
       <div className="App">
         <h1>#KNOCKEVERYDOOR</h1>
         {contacts.length === 0 ?
-        <form className='zip-form' data-test='zipForm' onSubmit={this.handleZipCodeSubmit}>
-          <input className={inputError ? 'zip-form__error' : ''}
-                 onChange={this.handleZipCodeInput}
-                 onBlur={this.handleZipCodeBlur}
-                 placeholder='Enter your zipcode'
-                 value={zipValue}>
-          </input>
-          <button type='submit'>submit</button>
-          {loading ?
-            <LoadingIndicator />
-          : null}
-        </form>
+          <ZipForm onZipCodeSubmit={this.fetchPeople} />
         : null}
         {contacts.map((contact, idx) =>
           <div key={idx}>
