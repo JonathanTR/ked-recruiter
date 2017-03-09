@@ -17,13 +17,24 @@ describe('ZipForm input', () => {
     expect(spy).not.toHaveBeenCalled();
   });
 
-  it('adds an error class to the input if an invalid zip is submitted', () => {
+  it('shows an error if an invalid zip has been submitted', () => {
     const form = mount(<ZipForm />);
     form.setState({zipValue: 'abcxyz'});
     form.find("[data-test='zipForm']").simulate('submit');
 
-    const actual = form.find('.zip-form__error').length;
+    const actual = form.find("[data-test='zipError']").length;
     const expected = 1;
+    expect(actual).toEqual(expected);
+  });
+
+  it('clears that error when the user clicks out', () => {
+    const form = mount(<ZipForm />);
+    const input = form.find("[data-test='zipInput']")
+    form.setState({errorMessage: 'Ya done goofed.'});
+    input.simulate('blur');
+
+    const actual = form.find("[data-test='zipError']").length;
+    const expected = 0;
     expect(actual).toEqual(expected);
   });
 

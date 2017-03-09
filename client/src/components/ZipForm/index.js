@@ -6,7 +6,7 @@ import LoadingIndicator from '../LoadingIndicator';
 
 class ZipForm extends Component {
   state = {
-    inputError: false,
+    errorMessage: '',
     loading: false,
     zipValue: '',
   }
@@ -24,12 +24,14 @@ class ZipForm extends Component {
   }
 
   handleZipCodeInput = (e) => {
-    e.preventDefault()
-    this.setState({zipValue: e.target.value, inputError: false});
+    this.setState({
+      zipValue: e.target.value,
+      errorMessage: ''
+    });
   }
 
   handleZipCodeBlur = (e) => {
-    this.setState({inputError: false});
+    this.setState({errorMessage: ''});
   }
 
   handleZipCodeSubmit = (e) => {
@@ -38,24 +40,29 @@ class ZipForm extends Component {
     if (!!code.match(/\d{5}/)) {
       this.fetchContacts(code);
     } else {
-      this.setState({inputError: true});
+      this.setState({errorMessage: "Oops, that's not a valid zip code"});
     };
   }
 
   render () {
-    const { inputError, loading, zipValue } = this.state;
+    const { errorMessage, loading, zipValue } = this.state;
 
     return(
       <form className='zip-form'
             data-test='zipForm'
             onSubmit={this.handleZipCodeSubmit}>
-        <input className={inputError ? 'zip-form__error' : ''}
+        <input data-test='zipInput'
                onChange={this.handleZipCodeInput}
                onBlur={this.handleZipCodeBlur}
                placeholder='Enter your zipcode'
                value={zipValue}>
         </input>
         <button type='submit'>submit</button>
+        {errorMessage ?
+          <div className='zip-form__error' data-test='zipError'>
+            {errorMessage}
+          </div>
+        : null}
         {loading ?
           <LoadingIndicator />
         : null}
