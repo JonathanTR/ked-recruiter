@@ -1,0 +1,9 @@
+one:
+  code: '02122'
+  lonlat: 'POINT(-71.042158 42.291413)'
+two:
+  code: '14609'
+  lonlat: 'POINT(-77.554873 43.177093)'
+three:
+  code: '80210'
+  lonlat: 'POINT(-104.962315 39.676626)'

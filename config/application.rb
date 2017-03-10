@@ -24,7 +24,7 @@ module Recruiter
 
     # Load secrets from untracked local file, named development.env, production.env, etc.
     config.before_configuration do
-      env_file = File.join(Rails.root, 'config', "#{Rails.env.downcase}.env")
+      env_file = File.join(Rails.root, 'config', 'environments', "#{Rails.env.downcase}.env")
       if File.exists?(env_file)
         File.readlines(env_file).each do |line|
           next if line[0] == '#'
