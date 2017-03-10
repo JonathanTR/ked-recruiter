@@ -15,11 +15,8 @@ class PeopleController < ApplicationController
   end
 
   def update
-    if @person.update(checked_out: false)
-      render json: @person
-    else
-      render json: @person.errors, status: :unprocessable_entity
-    end
+    @person.check_in! if params[:check_in]
+    render json: @person
   end
 
   private
@@ -61,10 +58,10 @@ class PeopleController < ApplicationController
 
       response[:people].each do |person|
         return {people: list} if list.length >= limit
-        record = Person.find_or_create_by(action_network_id: person[:action_network_id])
-        if record.available?
+        person_record = Person.find_or_create_by(action_network_id: person[:action_network_id])
+        if person_record.available?
           list << person
-          record.update(checked_out: true)
+          person_record.check_out!
         end
       end
       return fetch_and_sync_records(client, zips, list, page + 1)

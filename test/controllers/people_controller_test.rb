@@ -5,27 +5,26 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
   include ActionNetworkStubs
 
   setup do
-    @person = people(:one)
+    @person = people(:available)
   end
 
   test '#update should fail without required params' do
-    post people_url(@person), params: {
-      checked_out: true,
-    }, as: :json
+    post people_url
     body = JSON.parse(@response.body)
     assert_includes(body, 'error')
     assert_equal(body['error'], "Missing parameter: 'action_network_id'")
   end
 
   test "#update should update person" do
-    record = Person.find_by(action_network_id: @person.action_network_id)
-    assert_equal(record.available?, true)
-    post people_url(@person), params: {
-      action_network_id: @person.action_network_id,
-      checked_out: true,
+    person = Person.create(action_network_id: 'abc', checked_out_at: Time.now)
+    assert_equal(false, person.available?)
+
+    post people_url params: {
+      action_network_id: person.action_network_id,
+      check_in: true
     }, as: :json
-    record = Person.find_by(action_network_id: @person.action_network_id)
-    assert_equal(record.reload.available?, false)
+
+    assert_equal(true, person.reload.available?)
   end
 
   test "validates presence of zip code" do

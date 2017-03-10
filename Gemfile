@@ -22,6 +22,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'pry', '~> 0.10.4'
   gem 'webmock', '~> 2.3.2'
+  gem 'timecop', '~> 0.8.1'
 end
 
 group :development do
