@@ -1,5 +1,5 @@
 function getPeople(code, callback) {
-  return fetch(`http://localhost:3001/people?zip=${code}&radius=25`, {
+  return fetch(`http://localhost:3000/people?zip=${code}&radius=25`, {
     accept: 'application/json',
   })
   .then(checkStatus)
