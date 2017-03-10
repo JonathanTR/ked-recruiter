@@ -37,10 +37,10 @@ class ZipForm extends Component {
   handleZipCodeSubmit = (e) => {
     e.preventDefault();
     const code = this.state.zipValue;
-    if (!!code.match(/\d{5}/)) {
+    if (!!code.match(/^\d{5}$/)) {
       this.fetchContacts(code);
     } else {
-      this.setState({errorMessage: "Oops, that's not a valid zip code"});
+      this.setState({errorMessage: "Sorry, that's not a valid zip code 😿"});
     };
   }
 
