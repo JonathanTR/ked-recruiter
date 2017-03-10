@@ -6,9 +6,16 @@ function getPeople(code, callback) {
   .then(callback)
 }
 
+function updatePerson(actionNetworkID) {
+  return fetch(`http://localhost:3000/people?action_network_id=${actionNetworkID}`, {
+    accept: 'application/json',
+    method: 'POST'
+  })
+}
+
 function parseJSON(response) {
   return response.json();
 }
 
-const Client = { getPeople };
+const Client = { getPeople, updatePerson };
 export default Client;

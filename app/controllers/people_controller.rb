@@ -13,7 +13,7 @@ class PeopleController < ApplicationController
   end
 
   def update
-    if @person.update(checked_out: params[:checked_out])
+    if @person.update(checked_out: false)
       render json: @person
     else
       render json: @person.errors, status: :unprocessable_entity

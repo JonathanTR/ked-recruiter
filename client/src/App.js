@@ -3,11 +3,24 @@ import React, { Component } from 'react';
 import './App.css';
 import Contact from './components/Contact';
 import ZipForm from './components/ZipForm';
+import Client from './api/Client';
 
 class App extends Component {
   state = {
     contacts: [],
   };
+
+  componentDidMount() {
+    window.onbeforeunload = (e) => {
+      const { contacts } = this.state;
+      if ( contacts.length > 0) {
+        contacts.forEach((contact) => {
+          Client.updatePerson(contact.action_network_id)
+        })
+      };
+      return 'Open dialogue'
+    }
+  }
 
   setContacts = (list) => {
     this.setState({
