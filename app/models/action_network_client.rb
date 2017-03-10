@@ -14,7 +14,7 @@ class ActionNetworkClient
         { status: response.status, error: JSON.parse(response.body)['error'] }
       end
     rescue => error
-      { status: 0, error: error.message }
+      { status: 500, error: error.message }
     end
   end
 

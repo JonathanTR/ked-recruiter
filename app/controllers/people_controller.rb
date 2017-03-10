@@ -5,7 +5,8 @@ class PeopleController < ApplicationController
     client = ActionNetworkClient.new
     zips = ZipCode.near(params[:zip], params[:radius])
     response = fetch_and_sync_records(client, zips)
-    render json: response
+    status = response.delete(:status)
+    render json: response, status: status
   end
 
   def update
@@ -28,6 +29,7 @@ class PeopleController < ApplicationController
       response = client.request_people(zips, page)
       return response if response[:error]
       return {people: list} if response[:people].empty?
+
       response[:people].each do |person|
         return {people: list} if list.length >= limit
         record = Person.find_or_create_by(action_network_id: person[:action_network_id])
