@@ -4,6 +4,8 @@ class PeopleController < ApplicationController
   before_action :validate_zip, only: [:index]
   before_action :validate_radius, only: [:index]
 
+  BATCH_SIZE = 1
+
   def index
     client = ActionNetworkClient.new
     zips = ZipCode.near(params[:zip], params[:radius])
@@ -52,6 +54,7 @@ class PeopleController < ApplicationController
       end
     end
 
+    def fetch_and_sync_records(client, zips, list = [], page = 1, limit = BATCH_SIZE)
       response = client.request_people(zips, page)
       return response if response[:error]
       return {people: list} if response[:people].empty?
