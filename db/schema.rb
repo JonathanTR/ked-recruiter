@@ -10,11 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170310155143) do
+ActiveRecord::Schema.define(version: 20170310164814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "calls", force: :cascade do |t|
+    t.integer  "person_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "people", force: :cascade do |t|
     t.string   "action_network_id", null: false
@@ -31,4 +37,5 @@ ActiveRecord::Schema.define(version: 20170310155143) do
     t.index ["lonlat"], name: "index_zip_codes_on_lonlat", using: :gist
   end
 
+  add_foreign_key "calls", "people"
 end
