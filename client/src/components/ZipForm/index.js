@@ -51,13 +51,14 @@ class ZipForm extends Component {
       <form className='zip-form'
             data-test='zipForm'
             onSubmit={this.handleZipCodeSubmit}>
-        <input data-test='zipInput'
+        <input className='zip-form__input'
+               data-test='zipInput'
                onChange={this.handleZipCodeInput}
                onBlur={this.handleZipCodeBlur}
                placeholder='Enter your zipcode'
                value={zipValue}>
         </input>
-        <button type='submit'>submit</button>
+        <button className='zip-form__button' type='submit'>submit</button>
         {errorMessage ?
           <div className='zip-form__error' data-test='zipError'>
             {errorMessage}
