@@ -36,13 +36,9 @@ class App extends Component {
         <h1 className='logo'><span>#</span>KNOCK<span>EVERY</span>DOOR</h1>
         {contacts.length === 0 ?
           <ZipForm onFetchContacts={this.setContacts} />
-        : null}
-        {contacts.map((contact, idx) =>
-          <div key={idx}>
-            <Contact contact={contact} />
-            <br/>
-          </div>
-        )}
+          :
+          <Contact contact={contacts[0]} />
+        }
       </div>
     );
   }

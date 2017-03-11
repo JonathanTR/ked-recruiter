@@ -42,13 +42,13 @@ describe('Display Queued Contacts', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('renders a list of contacts, if there are any', () => {
+  it('renders one contact at a time', () => {
     const app = mount(<App />);
     app.setState({contacts: ['one','two']});
     const contacts = app.find("[data-test='contact']");
 
     const actual = contacts.length;
-    const expected = 2;
+    const expected = 1;
     expect(actual).toEqual(expected);
   });
 });
