@@ -54,4 +54,14 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     body = JSON.parse(response.body)
     assert_includes(body['error'], 'not a valid radius')
   end
+
+  test "creates a call record for the person and checks it back in" do
+    stub_action_network_success
+    post people_url(params: {
+      action_network_id: @person.action_network_id,
+      was_called: true
+    }, as: :json)
+    assert_equal(1, @person.calls.length)
+    assert_nil(@person.checked_out_at)
+  end
 end

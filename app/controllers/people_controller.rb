@@ -16,6 +16,7 @@ class PeopleController < ApplicationController
 
   def update
     @person.check_in! if params[:check_in]
+    Call.create(person: @person) if params[:was_called]
     render json: @person
   end
 
