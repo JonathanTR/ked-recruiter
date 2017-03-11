@@ -4,6 +4,6 @@ class CreateCalls < ActiveRecord::Migration[5.0]
       t.integer :person_id
       t.timestamps
     end
-    add_foreign_key :calls, :people, dependent: :delete
+    add_foreign_key :calls, :people, on_delete: :cascade
   end
 end

@@ -37,5 +37,5 @@ ActiveRecord::Schema.define(version: 20170310164814) do
     t.index ["lonlat"], name: "index_zip_codes_on_lonlat", using: :gist
   end
 
-  add_foreign_key "calls", "people"
+  add_foreign_key "calls", "people", on_delete: :cascade
 end
