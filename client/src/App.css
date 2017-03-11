@@ -2,12 +2,36 @@
   text-align: center;
 }
 
+.logo {
+  color: #344a7a;
+  font-family: "Libre Franklin", sans-serif;
+  font-weight: 800;
+  margin: 0;
+  margin-top: 0.8em;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+}
+
+.logo span:first-of-type {
+  color: #8f8f8f;
+}
+
+@media screen and (max-width:399px) {
+  .logo {
+    font-size: 1.8em;
+  }
+}
+
+.logo span:nth-of-type(2) {
+  color: #ef5354;
+}
+
 .zip-form {
   display: inline-block;
 }
 
 .zip-form__error {
-  color: tomato;
+  color: #ef5354;
   font-size: 0.8em;
   margin-top: 5px;
 }

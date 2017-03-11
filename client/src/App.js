@@ -33,7 +33,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>#KNOCKEVERYDOOR</h1>
+        <h1 className='logo'><span>#</span>KNOCK<span>EVERY</span>DOOR</h1>
         {contacts.length === 0 ?
           <ZipForm onFetchContacts={this.setContacts} />
         : null}
