@@ -29,6 +29,12 @@ class PersonTest < ActiveSupport::TestCase
     end
   end
 
+  test 'is not available if they have been called' do
+    person = people(:available)
+    call = Call.create(person: person)
+    assert_equal(false, person.available?)
+  end
+
   test 'but it can be checked back in' do
     person = Person.create(action_network_id: "action_network:#{SecureRandom.uuid}")
     person.check_out!
