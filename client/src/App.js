@@ -42,12 +42,15 @@ class App extends Component {
     return (
       <div className="App">
         <h1 className='logo'><span>#</span>KNOCK<span>EVERY</span>DOOR</h1>
+        <p>
+          Ready to recruit some volunteers?
+        </p>
         {contacts.length === 0 ?
           <ZipForm onFetchContacts={this.setContacts} />
           :
           <div>
             <Contact contact={contacts[0]} />
-            <div >Feeling lost? Enter a different
+            <em className='new-zip-link'>Feeling lost? Enter a different
             {' '}
             <a data-test='action:newZip'
                href='#'
@@ -55,7 +58,7 @@ class App extends Component {
                Zip Code
              </a>
             .
-            </div>
+            </em>
           </div>
         }
       </div>
