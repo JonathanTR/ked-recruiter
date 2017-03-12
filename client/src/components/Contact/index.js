@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Client from '../../api/Client';
+import './index.css';
 
 class Contact extends Component {
   formatPhone (number) {
@@ -25,15 +26,17 @@ class Contact extends Component {
     const { contact } = this.props;
 
     return(
-      <div data-test='contact'>
+      <div className='contact' data-test='contact'>
         {contact.given_name ?
           <div data-test='givenName'>
-            {`Given Name: ${contact.given_name}`}
+            <span className='contact__label'>Given Name</span>
+            {' ' + contact.given_name}
           </div>
         : null}
         {contact.family_name ?
           <div data-test='familyName'>
-            {`Family Name: ${contact.family_name}`}
+            <span className='contact__label'>Family Name</span>
+            {' '+ contact.family_name}
           </div>
         : null}
         {contact.phone_number ?
