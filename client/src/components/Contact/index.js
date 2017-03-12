@@ -15,6 +15,7 @@ class Contact extends Component {
   handleContactCalled = () => {
     const { action_network_id } = this.props.contact;
     Client.updatePerson(action_network_id, {called: true});
+    this.props.onFinished();
   }
 
   handleRequestNewZip = () => {

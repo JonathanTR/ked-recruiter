@@ -52,6 +52,23 @@ describe('Display Queued Contacts', () => {
     const expected = 1;
     expect(actual).toEqual(expected);
   });
+
+  it('renders the next contact when the user is ready', () => {
+    const app = mount(<App />);
+    const contacts = [
+      {given_name: 'First', family_name: 'Person', phone_number: '1234567890' },
+      {given_name: 'Second', family_name: 'Person', phone_number: '0987654321' },
+    ]
+    app.setState({ contacts });
+
+    const contact = app.find("[data-test='contact']");
+    const firstContactName = contact.find("[data-test='givenName']").text();
+    expect(firstContactName).toContain(contacts[0].given_name);
+
+    contact.find("[data-test='action:called']").simulate('click');
+    const secondContactName = contact.find("[data-test='givenName']").text();
+    expect(secondContactName).toContain(contacts[1].given_name);
+  });
 });
 
 describe('Entering a new zip code', () => {

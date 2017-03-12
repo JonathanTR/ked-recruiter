@@ -71,11 +71,11 @@ describe('Contact', () => {
         given_name: 'GivenName',
         phone_number: '1234567890'
       };
-      const props = Object.assign({}, {contact}, additionalProps);
+      const props = Object.assign({}, {contact}, {onFinished: jest.fn()}, additionalProps);
       const component = shallow(<Contact {...props} />);
       const calledButton = component.find("[data-test='action:called']");
       const newZipLink = component.find("[data-test='action:newZip']");
-      return { component, contact, calledButton, newZipLink };
+      return { component, props, contact, calledButton, newZipLink };
     }
 
     afterEach(() => {
