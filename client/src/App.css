@@ -20,54 +20,14 @@
   .logo {
     font-size: 1.8em;
   }
-  .zip-form {
-    width: 80%;
-  }
 }
 
 .logo span:nth-of-type(2) {
   color: #ef5354;
 }
 
-.zip-form {
-  display: inline-block;
-  margin-top: 1em;
-  position: relative;
-}
-
-.zip-form__error {
-  color: #ef5354;
+.new-zip-link {
+  display: block;
   font-size: 0.8em;
-  margin-top: 5px;
-  position: absolute;
-}
-
-.zip-form__input,
-.zip-form__button {
-  font-size: 1em;
-}
-
-.zip-form__input {
-  border: 2px solid #344a7a;
-  border-bottom: none;
-  box-sizing: border-box;
-  display: block;
-  padding: 0.6em;
-  width: 100%;
-}
-
-.zip-form__button {
-  background: white;
-  border: 2px solid #344a7a;
-  color: #344a7a;
-  display: block;
-  font-weight: 800;
-  padding: 0.6em;
-  width: 100%;
-}
-
-.zip-form__button:hover {
-  background: #344a7a;
-  color: white;
-  cursor: pointer;
+  margin-top: 1em;
 }

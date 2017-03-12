@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Client from '../../api/Client';
 import LoadingIndicator from '../LoadingIndicator';
+import './index.css';
 
 
 class ZipForm extends Component {
