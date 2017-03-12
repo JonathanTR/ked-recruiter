@@ -1,13 +1,12 @@
 .zip-form {
   display: inline-block;
-  position: relative;
+  width: 15.5em;
 }
 
 .zip-form__error {
   color: #ef5354;
   font-size: 0.8em;
   margin-top: 0.5em;
-  position: absolute;
 }
 
 .zip-form__input,
@@ -32,6 +31,7 @@
   font-weight: 800;
   padding: 0.6em;
   width: 100%;
+  transition: background 150ms;
 }
 
 .zip-form__button:hover {

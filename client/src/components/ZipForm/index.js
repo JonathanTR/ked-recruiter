@@ -59,7 +59,7 @@ class ZipForm extends Component {
                placeholder='Enter your zipcode'
                value={zipValue}>
         </input>
-        <button className='zip-form__button' type='submit'>submit</button>
+        <button className='zip-form__button' type='submit'>Let's Go!</button>
         {errorMessage ?
           <div className='zip-form__error' data-test='zipError'>
             {errorMessage}

@@ -5,14 +5,24 @@
   color: #444;
   display: inline-block;
   margin: 0 auto;
-  line-height: 1.2em;
+  line-height: 1.6em;
   padding: 1em;
-  text-align: left;
   width: 300px;
 }
 
-.contact__label {
-  text-decoration: underline;
+.contact__name {
+  display: inline-block;
+  font-size: 1.4em;
+}
+
+.contact__phone {
+  font-size: 1.2em;
+  padding: 0.8em;
+  text-align: center;
+}
+
+.contact__prompt {
+  text-align: center;
 }
 
 @media screen and (max-width:499px) {

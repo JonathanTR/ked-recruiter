@@ -28,26 +28,25 @@ class Contact extends Component {
     return(
       <div className='contact' data-test='contact'>
         {contact.given_name ?
-          <div data-test='givenName'>
-            <span className='contact__label'>Given Name</span>
-            {' ' + contact.given_name}
+          <div className='contact__name' data-test='givenName'>
+            {contact.given_name}
           </div>
-        : null}
-        {contact.family_name ?
-          <div data-test='familyName'>
-            <span className='contact__label'>Family Name</span>
-            {' '+ contact.family_name}
+        : null} {contact.family_name ?
+          <div className='contact__name' data-test='familyName'>
+            {contact.family_name}
           </div>
         : null}
         {contact.phone_number ?
-          <div data-test='phoneNumber'>
-            {this.formatPhone(contact.phone_number)}
+          <div className='contact__phone' data-test='phoneNumber'>
+            {'+1 ' + this.formatPhone(contact.phone_number)}
           </div>
         : null}
-        Did you call this person?
-        <button data-test='action:called' onClick={this.handleContactCalled}>
-          yes
-        </button>
+        <div className='contact__prompt'>
+          Did you call this person?
+          <button data-test='action:called' onClick={this.handleContactCalled}>
+            yes
+          </button>
+        </div>
       </div>
     );
   }
