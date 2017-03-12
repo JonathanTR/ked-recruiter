@@ -37,9 +37,12 @@ class Contact extends Component {
           </div>
         : null}
         {contact.phone_number ?
-          <div className='contact__phone' data-test='phoneNumber'>
+          <a className='contact__phone'
+               data-test='phoneNumber'
+               href={`tel:${contact.phone_number}`}
+               target='_blank'>
             {'+1 ' + this.formatPhone(contact.phone_number)}
-          </div>
+          </a>
         : null}
         <div className='contact__prompt'>
           Did you call this person?

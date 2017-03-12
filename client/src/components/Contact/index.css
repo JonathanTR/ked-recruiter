@@ -16,7 +16,9 @@
 }
 
 .contact__phone {
-  font-size: 1.2em;
+  color: #4C85FF;
+  display: block;
+  font-size: 1.8em;
   padding: 0.8em;
   text-align: center;
 }
@@ -28,5 +30,8 @@
 @media screen and (max-width:499px) {
   .contact {
     width: 260px;
+  }
+  .contact__phone {
+    font-size: 1.4em;
   }
 }
