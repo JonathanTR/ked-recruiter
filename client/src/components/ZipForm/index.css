@@ -3,12 +3,6 @@
   width: 15.5em;
 }
 
-.zip-form__error {
-  color: #ef5354;
-  font-size: 0.8em;
-  margin-top: 0.5em;
-}
-
 .zip-form__input,
 .zip-form__button {
   font-size: 1em;
@@ -38,6 +32,21 @@
   background: #344a7a;
   color: white;
   cursor: pointer;
+}
+
+.zip-form__info,
+.zip-form__error {
+  font-size: 0.8em;
+  margin-top: 0.5em;
+}
+
+.zip-form__info {
+  color: #4c85ff;
+  white-space: pre;
+}
+
+.zip-form__error {
+  color: #ef5354;
 }
 
 @media screen and (max-width:499px) {

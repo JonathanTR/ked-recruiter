@@ -84,4 +84,14 @@ describe('ZipForm submit', () => {
     const expected = 1;
     expect(actual).toEqual(expected);
   });
+
+  it('Shows a message if no contacts are returned from API', () => {
+    const { form, apiCallback } = setup();
+    const response = { people: [] };
+    apiCallback(response);
+
+    const actual = form.find("[data-test='zipInfo']").length;
+    const expected = 1;
+    expect(actual).toEqual(expected);
+  });
 });

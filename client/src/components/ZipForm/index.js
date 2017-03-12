@@ -8,6 +8,7 @@ import './index.css';
 class ZipForm extends Component {
   state = {
     errorMessage: '',
+    infoMessage: '',
     loading: false,
     zipValue: '',
   }
@@ -17,6 +18,11 @@ class ZipForm extends Component {
     Client.getPeople(code, (response) => {
       if (response.error) {
         this.setState({errorMessage: response.error, loading: false});
+      } else if (response.people.length === 0) {
+        this.setState({
+          infoMessage: "Bummer, we couldn't find anyone in your area. \n Keep checking back!",
+          loading: false,
+        });
       } else {
         this.setState({loading: false});
         this.props.onFetchContacts(response.people);
@@ -46,7 +52,7 @@ class ZipForm extends Component {
   }
 
   render () {
-    const { errorMessage, loading, zipValue } = this.state;
+    const { errorMessage, infoMessage, loading, zipValue } = this.state;
 
     return(
       <form className='zip-form'
@@ -63,6 +69,11 @@ class ZipForm extends Component {
         {errorMessage ?
           <div className='zip-form__error' data-test='zipError'>
             {errorMessage}
+          </div>
+        : null}
+        {infoMessage ?
+          <div className='zip-form__info' data-test='zipInfo'>
+            {infoMessage}
           </div>
         : null}
         {loading ?
