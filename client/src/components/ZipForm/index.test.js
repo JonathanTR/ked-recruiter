@@ -55,6 +55,8 @@ describe('ZipForm submit', () => {
     input.simulate('change', {target: {value: '02122'}})
     form.simulate('submit');
 
+    // This grabs a handle on the callback fired after the API call
+    // and let's us call it with a fake response.
     const invocationArgs = Client.getPeople.mock.calls[0];
     const apiCallback = invocationArgs[1];
     return { form, apiCallback };

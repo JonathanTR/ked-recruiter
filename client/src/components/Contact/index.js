@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Client from '../../api/Client';
 
 class Contact extends Component {
   formatPhone (number) {
@@ -8,6 +9,11 @@ class Contact extends Component {
     } else {
       return raw;
     }
+  }
+
+  handleContactCalled = () => {
+    const { action_network_id } = this.props.contact;
+    Client.updatePerson(action_network_id, {called: true});
   }
 
   render () {
@@ -30,6 +36,10 @@ class Contact extends Component {
             {this.formatPhone(contact.phone_number)}
           </div>
         : null}
+        Did you call this person?
+        <button data-test='action:called' onClick={this.handleContactCalled}>
+          yes
+        </button>
       </div>
     );
   }
