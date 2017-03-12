@@ -4,7 +4,7 @@ class PeopleController < ApplicationController
   before_action :validate_zip, only: [:index]
   before_action :validate_radius, only: [:index]
 
-  BATCH_SIZE = 1
+  BATCH_SIZE = 5
 
   def index
     client = ActionNetworkClient.new
@@ -52,6 +52,10 @@ class PeopleController < ApplicationController
       end
     end
 
+    def format_time(time)
+      time.in_time_zone('Pacific Time (US & Canada)').strftime("%a %m/%d/%Y - %I:%M %p %Z")
+    end
+
     def fetch_and_sync_records(client, zips, list = [], page = 1, limit = BATCH_SIZE)
       response = client.request_people(zips, page)
       return response if response[:error]
@@ -61,7 +65,7 @@ class PeopleController < ApplicationController
         return {people: list} if list.length >= limit
         person_record = Person.find_or_create_by(action_network_id: person[:action_network_id])
         if person_record.available?
-          list << person
+          list << person.merge({call_list: person_record.calls.map{|c| format_time(c.created_at)}})
           person_record.check_out!
         end
       end

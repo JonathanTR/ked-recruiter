@@ -46,11 +46,21 @@ class Contact extends Component {
           </a>
         : null}
         <div className='contact__prompt'>
-          Did you call this person?
-          <button data-test='action:called' onClick={this.handleContactCalled}>
-            yes
-          </button>
+          <a data-test='action:called'
+             href='#'
+             onClick={this.handleContactCalled}>
+            I spoke with this person
+          </a>
         </div>
+        {contact.call_list ?
+          <div style={{textAlign: 'left'}}>
+            <br/><br/>
+            Called at:
+            {contact.call_list.map((call, idx) => {
+              return(<div key={idx}>{call}</div>)
+            })}
+          </div>
+        : null}
       </div>
     );
   }
