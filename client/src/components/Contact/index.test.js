@@ -74,7 +74,8 @@ describe('Contact', () => {
       const props = Object.assign({}, {contact}, additionalProps);
       const component = shallow(<Contact {...props} />);
       const calledButton = component.find("[data-test='action:called']");
-      return { component, contact, calledButton };
+      const newZipLink = component.find("[data-test='action:newZip']");
+      return { component, contact, calledButton, newZipLink };
     }
 
     afterEach(() => {
@@ -88,14 +89,6 @@ describe('Contact', () => {
       const actionNetworkID = contact.action_network_id;
       const args = [actionNetworkID, {called: true}]
       expect(Client.updatePerson).toHaveBeenCalledWith(...args);
-    });
-
-    it("with called=true if the user clicks 'called", () => {
-
-    });
-
-    it("if the user clicks 'enter a different zip code", () => {
-
     });
   });
 });

@@ -28,6 +28,14 @@ class App extends Component {
     });
   }
 
+  handleRequestNewZip = () => {
+    const { contacts } = this.state;
+    contacts.forEach((contact) => {
+      Client.updatePerson(contact.action_network_id)
+    });
+    this.setState({contacts: []})
+  }
+
   render() {
     const { contacts } = this.state;
 
@@ -37,7 +45,18 @@ class App extends Component {
         {contacts.length === 0 ?
           <ZipForm onFetchContacts={this.setContacts} />
           :
-          <Contact contact={contacts[0]} />
+          <div>
+            <Contact contact={contacts[0]} />
+            <div >Feeling lost? Enter a different
+            {' '}
+            <a data-test='action:newZip'
+               href='#'
+               onClick={this.handleRequestNewZip}>
+               Zip Code
+             </a>
+            .
+            </div>
+          </div>
         }
       </div>
     );
