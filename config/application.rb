@@ -23,6 +23,8 @@ module Recruiter
     # -- all .rb files in that directory are automatically loaded.
 
     # Load secrets from untracked local file, named development.env, production.env, etc.
+    # Docker compose will do this automatically, but this allows the app to be
+    # run outside of a container, if desired
     config.before_configuration do
       env_file = File.join(Rails.root, 'config', 'environments', "#{Rails.env.downcase}.env")
       if File.exists?(env_file)

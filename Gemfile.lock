@@ -54,6 +54,8 @@ GEM
     faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.17)
+    foreman (0.83.0)
+      thor (~> 0.19.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hashdiff (0.3.2)
@@ -150,6 +152,7 @@ DEPENDENCIES
   activerecord-postgis-adapter (~> 4.0.2)
   byebug
   faraday (~> 0.11.0)
+  foreman (~> 0.83.0)
   listen (~> 3.0.5)
   pg (~> 0.18)
   pry (~> 0.10.4)
