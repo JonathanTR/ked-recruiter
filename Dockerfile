@@ -18,10 +18,14 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app
 
+# Setup Client
+RUN curl -sL https://deb.nodesource.com/setup_7.x | bash -
+RUN apt-get install -y nodejs
+RUN cd /app/client && npm config set registry http://registry.npmjs.org/ && npm install
+
 # RGeo gem must be reinstalled in order to find its dependencies
 RUN gem uninstall --force 'rgeo' && gem install 'rgeo'
 
 # Set up
 RUN bundle install
-ENTRYPOINT ["bundle", "exec"]
 CMD rails server

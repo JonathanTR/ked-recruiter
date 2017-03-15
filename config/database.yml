@@ -6,10 +6,14 @@ default: &default
 development:
   <<: *default
   database: recruiter_development
+  user: postgres
+  host: db
 
 test:
   <<: *default
   database: recruiter_test
+  user: postgres
+  host: db
 
 production:
   <<: *default

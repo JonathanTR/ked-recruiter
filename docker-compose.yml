@@ -4,23 +4,17 @@ services:
     image: mdillon/postgis
     container_name: db
   web:
-    image: jtr1/ked-recruiter-api
-    command: rails s -p 3000 -e production
+    image: jtr1/ked-recruiter-app
+    command: foreman start
     container_name: recruiter-web
-    env_file: ./config/production.env
+    env_file: ./config/environments/development.env
     depends_on:
       - db
     ports:
       - "3000:3000"
+      - "4000:4000"
+    tty: true
+    stdin_open: true
     volumes:
       - .:/app
-  client:
-    image: jtr1/ked-recruiter-client
-    command: npm start
-    container_name: recruiter-client
-    depends_on:
-      - web
-    volumes:
-      - ./client:/usr/src/app
-    ports:
-      - "80:3000"
+      - ./client:/app/client
