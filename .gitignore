@@ -24,8 +24,11 @@
 # dependencies
 node_modules
 
-# production
+# Production
 build
+
+# Manage /public files in ./client
+public/*
 
 # misc
 .DS_Store
