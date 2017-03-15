@@ -11,6 +11,7 @@ services:
     env_file: ./config/environments/production.env
     environment:
       - RAILS_SERVE_STATIC_FILES=true
+      - RAILS_ENV=production
     depends_on:
       - db
     ports:
