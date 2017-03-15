@@ -22,8 +22,8 @@ chdir APP_ROOT do
   system! 'bin/rails db:migrate'
 
   puts "\n== Updating client build =="
-  system! "cd #{Rails.root.join('client')} && npm run -s build"
-  system! "cp -rf #{Rails.root.join('client', 'build')}/* public"
+  system! "cd #{APP_ROOT.join('client')} && npm run -s build"
+  system! "cp -rf #{APP_ROOT.join('client', 'build')}/* #{APP_ROOT.join('public')}"
 
   puts "\n== Removing old logs and tempfiles =="
   system! 'bin/rails log:clear tmp:clear'
