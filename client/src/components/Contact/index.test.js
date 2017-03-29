@@ -73,6 +73,24 @@ describe('Contact', () => {
       const expected = 1;
       expect(actual).toEqual(expected);
     });
+
+    it("shows a call list if the contact has one", () => {
+      const contact = testContact();
+      const component = shallow(<Contact contact={contact} />);
+
+      const actual = component.find("[data-test='contactCallList']").length;
+      const expected = 1;
+      expect(actual).toEqual(expected);
+    });
+
+    it("doesn't show a call list if the contact doesn't have one", () => {
+      const contact = testContact({ call_list: [] });
+      const component = shallow(<Contact contact={contact} />);
+
+      const actual = component.find("[data-test='contactCallList']").length;
+      const expected = 0;
+      expect(actual).toEqual(expected);
+    });
   });
 
   describe('calls the API client', () => {

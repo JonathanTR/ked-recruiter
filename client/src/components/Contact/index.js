@@ -52,10 +52,10 @@ class Contact extends Component {
             I spoke with this person
           </a>
         </div>
-        {contact.call_list ?
-          <div style={{textAlign: 'left'}}>
+        {contact.call_list && contact.call_list.length > 0 ?
+          <div className='contact__call-list' data-test='contactCallList'>
             <br/><br/>
-            Called at:
+            Previous calls:
             {contact.call_list.map((call, idx) => {
               return(<div key={idx}>{call}</div>)
             })}
