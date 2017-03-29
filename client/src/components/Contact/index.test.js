@@ -6,19 +6,31 @@ import Contact from './index';
 import Client from '../../api/Client';
 jest.mock('../../api/Client');
 
+const testContact = (attributes = {}) => {
+  return Object.assign({
+    action_network_id: 'action_network:4de4d476-85ca-4685-8362-e50d937a106e',
+    family_name: 'FamilyName',
+    given_name: 'GivenName',
+    phone_number: '1234567890',
+    call_list: [
+      'Sun 01/01/2017 - 00:00 AM PDT'
+    ]
+  }, attributes)
+}
+
 describe('Contact', () => {
   describe('renders', () => {
     it("a contact's given name", () => {
-      const contact = { given_name: 'Given' };
+      const contact = testContact();
       const component = shallow(<Contact contact={contact} />);
 
       const string = component.find("[data-test='givenName']").text();
-      const substring = 'Given';
+      const substring = contact.given_name;
       expect(string).toContain(substring);
     });
 
     it('no given name if there is none', () => {
-      const contact = { foo: 'bar' };
+      const contact = testContact({ given_name: null });
       const component = shallow(<Contact contact={contact} />);
 
       const actual = component.find("[data-test='givenName']").length;
@@ -27,16 +39,16 @@ describe('Contact', () => {
     });
 
     it("a contact's family name", () => {
-      const contact = { family_name: 'Family' };
+      const contact = testContact();
       const component = shallow(<Contact contact={contact} />);
 
       const string = component.find("[data-test='familyName']").text();
-      const substring = 'Family';
+      const substring = contact.family_name;
       expect(string).toContain(substring);
     });
 
     it('no family name if there is none', () => {
-      const contact = { foo: 'bar' };
+      const contact = testContact({ family_name: null });
       const component = shallow(<Contact contact={contact} />);
 
       const actual = component.find("[data-test='familyName']").length;
@@ -45,7 +57,7 @@ describe('Contact', () => {
     });
 
     it("a contact's phone number", () => {
-      const contact = { phone_number: '1234567890' };
+      const contact = testContact();
       const component = shallow(<Contact contact={contact} />);
 
       const string = component.find("[data-test='phoneNumber']").text();
@@ -54,7 +66,7 @@ describe('Contact', () => {
     });
 
     it("a 'called' button at the bottom of the contact", () => {
-      const contact = {given_name: 'GivenName', family_name: 'FamilyName', phone_number: '1234567890'}
+      const contact = testContact();
       const component = shallow(<Contact contact={contact} />);
 
       const actual = component.find("[data-test='action:called']").length;
@@ -65,14 +77,10 @@ describe('Contact', () => {
 
   describe('calls the API client', () => {
     const setup = (additionalProps) => {
-      const contact = {
-        action_network_id: 'action_network:4de4d476-85ca-4685-8362-e50d937a106e',
-        family_name: 'FamilyName',
-        given_name: 'GivenName',
-        phone_number: '1234567890'
-      };
+      const contact = testContact();
       const props = Object.assign({}, {contact}, {onFinished: jest.fn()}, additionalProps);
       const component = shallow(<Contact {...props} />);
+
       const calledButton = component.find("[data-test='action:called']");
       const newZipLink = component.find("[data-test='action:newZip']");
       return { component, props, contact, calledButton, newZipLink };
