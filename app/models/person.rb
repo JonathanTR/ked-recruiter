@@ -2,7 +2,7 @@ class Person < ApplicationRecord
   has_many :calls
 
   def available?
-    !checked_out_at || !(checked_out_at > 5.hours.ago)
+    !checked_out_at || !(checked_out_at > 1.hour.ago)
   end
 
   def check_in!

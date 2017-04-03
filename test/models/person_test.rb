@@ -20,19 +20,13 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal(true, person.available?)
   end
 
-  test 'once checked out, is not available for five hours' do
+  test 'once checked out, is not available for one hour' do
     person = people(:available)
     person.check_out!
     assert_equal(false, person.available?)
-    Timecop.travel(Time.now + 5.hours + 1.second) do
+    Timecop.travel(Time.now + 1.hour + 1.second) do
       assert_equal(true, person.available?)
     end
-  end
-
-  test 'is not available if they have been called' do
-    person = people(:available)
-    call = Call.create(person: person)
-    assert_equal(false, person.available?)
   end
 
   test 'but it can be checked back in' do
