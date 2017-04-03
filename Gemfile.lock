@@ -85,6 +85,8 @@ GEM
     public_suffix (2.0.5)
     puma (3.7.1)
     rack (2.0.1)
+    rack-attack (5.0.1)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.1)
@@ -157,6 +159,7 @@ DEPENDENCIES
   pg (~> 0.18)
   pry (~> 0.10.4)
   puma (~> 3.0)
+  rack-attack (~> 5.0.1)
   rails (~> 5.0.1)
   spring
   spring-watcher-listen (~> 2.0.0)
@@ -165,4 +168,4 @@ DEPENDENCIES
   webmock (~> 2.3.2)
 
 BUNDLED WITH
-   1.14.5
+   1.14.6

@@ -5,6 +5,7 @@ class PublicController < ApplicationController
   })
 
   def index
+    cookies[:login] ||= { value: 'login', expires: 5.minutes.from_now }
     render html: public_file('home.html')
   end
 
