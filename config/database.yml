@@ -12,6 +12,8 @@ development:
 test:
   <<: *default
   database: recruiter_test
+  user: postgres
+  host: db
 
 production:
   <<: *default
