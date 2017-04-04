@@ -34,6 +34,7 @@ group :development, :test do
   gem 'pry', '~> 0.10.4'
   gem 'webmock', '~> 2.3.2'
   gem 'timecop', '~> 0.8.1'
+  gem 'faker', '~> 1.7.3'
 end
 
 group :development do
