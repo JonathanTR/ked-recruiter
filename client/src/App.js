@@ -17,8 +17,8 @@ class App extends Component {
         contacts.forEach((contact) => {
           Client.updatePerson(contact.action_network_id);
         });
+        return 'Open dialogue';
       };
-      return 'Open dialogue';
     };
   }
 
