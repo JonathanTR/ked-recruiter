@@ -1,4 +1,4 @@
-FROM rails:onbuild
+FROM ruby:2.4.0
 MAINTAINER jonathan.d.reilly@gmail.com
 
 # Include linux dependencies for RGeo
