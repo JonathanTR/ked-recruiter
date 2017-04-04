@@ -1,5 +1,5 @@
 function getPeople(code, callback) {
-  return fetch(`/people?zip=${code}&radius=25`, {
+  return fetch(`/people?zip=${code}`, {
     accept: 'application/json',
     credentials: 'same-origin'
   })

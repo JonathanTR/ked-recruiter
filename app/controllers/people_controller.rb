@@ -1,15 +1,18 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:update]
-  before_action :validate_params, only: [:index]
   before_action :validate_zip, only: [:index]
-  before_action :validate_radius, only: [:index]
 
   BATCH_SIZE = 5
   MAX_RECORDS_PER_WEEK = 150
 
   def index
     client = ActionNetworkClient.new
-    zips = ZipCode.near(params[:zip], params[:radius])
+    zip_code = ZipCode.find_by(code: params[:zip])
+    if zip_code.in_major_metro?
+      zips = ZipCode.near(zip_code, miles: 10)
+    else
+      zips = ZipCode.near(zip_code, miles: 25)
+    end
 
     # Fetch records and forward status from ActionNetwork API
     response = fetch_and_sync_records(client, zips)
@@ -37,25 +40,9 @@ class PeopleController < ApplicationController
       @person = Person.find_by(action_network_id: params[:action_network_id])
     end
 
-    def validate_params
-      [:zip, :radius].each do |param|
-        if params[param].blank?
-          render json: { error: "Missing parameter: '#{param}'" },
-                 status: :bad_request
-        end
-      end
-    end
-
     def validate_zip
       if ZipCode.find_by(code: params[:zip]).blank?
         render json: { error: "Sorry, #{params[:zip]} is not a real zip code 😿" },
-               status: :bad_request
-      end
-    end
-
-    def validate_radius
-      if !params[:radius].match(/\d{1,3}/)
-        render json: { error: "Sorry, #{params[:radius]} is not a valid radius 😿" },
                status: :bad_request
       end
     end
