@@ -44,15 +44,3 @@ def response_body_shape
     }
   }
 end
-
-def response_person_shape
-  {
-    action_network_id:  action_network_id_for(person),
-    address:            person[:postal_addresses],
-    email_address:      primary_email_for(person),
-    family_name:        person[:family_name],
-    given_name:         person[:given_name],
-    languages_spoken:   person[:languages_spoken],
-    phone_number:       person[:custom_fields][:"Mobile number"],
-  }
-end
