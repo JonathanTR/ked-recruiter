@@ -1,9 +1,15 @@
 module ActionNetworkStubs
-  def stub_action_network_success
-    success_fixture = file_fixture('action_network_people_sucess.json')
-    stub_request(:get, /https:\/\/actionnetwork.org\/api\/v2\/people.+/).to_return({
+  def stub_action_network_success(times: 1)
+    success_fixture = file_fixture('action_network_people_success.json')
+    stub_request(:get, /https:\/\/actionnetwork.org\/api\/v2\/people.+/)
+    .to_return({
       status: 200,
       body: success_fixture
+    }).times(times).then.to_return({
+      status: 200,
+      body: {
+        _embedded: { 'osdi:people': [] }
+      }.to_json
     })
   end
 

@@ -64,4 +64,22 @@ class PeopleControllerTest < ActionDispatch::IntegrationTest
     assert_equal(1, @person.calls.length)
     assert_nil(@person.checked_out_at)
   end
+
+  test "tallies up the number records requested per week" do
+    stub_action_network_success
+    cookies['record_count'] = 10
+    original_count = cookies['record_count'].to_i
+
+    get people_url(params: {zip: '02122', radius: 25})
+    record_count = JSON.parse(response.body)['people'].length
+    assert(cookies['record_count'].to_i === original_count + record_count)
+  end
+
+  test "throws an error if records requested exceeds limit" do
+    stub_action_network_success
+    cookies['record_count'] = PeopleController::MAX_RECORDS_PER_WEEK
+    get people_url(params: {zip: '02122', radius: 25})
+    assert_equal(response.status, 429)
+    assert_not_nil(JSON.parse(response.body)['error'])
+  end
 end

@@ -5,12 +5,20 @@ class PeopleController < ApplicationController
   before_action :validate_radius, only: [:index]
 
   BATCH_SIZE = 5
+  MAX_RECORDS_PER_WEEK = 150
 
   def index
     client = ActionNetworkClient.new
     zips = ZipCode.near(params[:zip], params[:radius])
+
+    # Fetch records and forward status from ActionNetwork API
     response = fetch_and_sync_records(client, zips)
     status = response.delete(:status)
+
+    # Limit the number of records a user can request per week
+    record_count = response[:people] && response[:people].length || 0
+    limit_record_requests(record_count); return if performed?
+
     render json: response, status: status
   end
 
@@ -49,6 +57,16 @@ class PeopleController < ApplicationController
       if !params[:radius].match(/\d{1,3}/)
         render json: { error: "Sorry, #{params[:radius]} is not a valid radius 😿" },
                status: :bad_request
+      end
+    end
+
+    def limit_record_requests(count)
+      if cookies[:record_count] && cookies[:record_count].to_i >= MAX_RECORDS_PER_WEEK
+        return render json: { error: "Exceeded max records per week" }, status: 429
+      elsif cookies[:record_count]
+        cookies[:record_count] = cookies[:record_count].to_i + count
+      else
+        cookies[:record_count] = { value: count, expires: 1.week.from_now }
       end
     end
 
