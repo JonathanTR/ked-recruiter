@@ -12,6 +12,10 @@ class Contact extends Component {
     }
   }
 
+  handleClickedNextContact = () => {
+    this.props.onFinished();
+  }
+
   handleContactCalled = () => {
     const { action_network_id } = this.props.contact;
     Client.updatePerson(action_network_id, {called: true});
@@ -46,11 +50,15 @@ class Contact extends Component {
           </a>
         : null}
         <div className='contact__prompt'>
-          <a data-test='action:called'
-             href='#'
-             onClick={this.handleContactCalled}>
+          <button className='contact__action contact__action--called'
+                  data-test='action:called'
+                  href='#'
+                  onClick={this.handleContactCalled}>
             I spoke with this person
-          </a>
+          </button>
+          <button className='contact__action' href='#' onClick={this.handleClickedNextContact}>
+            Skip contact
+          </button>
         </div>
         {contact.call_list && contact.call_list.length > 0 ?
           <div className='contact__call-list' data-test='contactCallList'>
