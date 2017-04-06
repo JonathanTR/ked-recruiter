@@ -7,6 +7,7 @@ import Client from './api/Client';
 
 class App extends Component {
   state = {
+    message: 'Ready to recruit some volunteers?',
     contacts: [],
   };
 
@@ -24,13 +25,21 @@ class App extends Component {
 
   setContacts = (list) => {
     this.setState({
-      contacts: list
+      contacts: list,
+      message: '',
     });
   }
 
   setNextContact = () => {
     const { contacts } = this.state;
     this.setState({contacts: contacts.slice(1)});
+
+    // We just ejected the last contact, so insert the finished message
+    if (contacts.length === 1) {
+      this.setState({
+        message: 'Great job! Ready for another round?'
+      })
+    }
   }
 
   handleRequestNewZip = () => {
@@ -42,13 +51,13 @@ class App extends Component {
   }
 
   render() {
-    const { contacts } = this.state;
+    const { contacts, message } = this.state;
 
     return (
       <div className="App">
         <h1 className='logo'><span>#</span>KNOCK<span>EVERY</span>DOOR</h1>
         <p>
-          Ready to recruit some volunteers?
+          {message}
         </p>
         {contacts.length === 0 ?
           <ZipForm onFetchContacts={this.setContacts} />
