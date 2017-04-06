@@ -20,7 +20,7 @@ class ZipForm extends Component {
         this.setState({errorMessage: response.error, loading: false});
       } else if (response.people.length === 0) {
         this.setState({
-          infoMessage: "Bummer, we couldn't find anyone in your area. \n Keep checking back!",
+          infoMessage: "Everyone in your area has been contacted! \n Keep checking back!",
           loading: false,
         });
       } else {
@@ -66,6 +66,9 @@ class ZipForm extends Component {
                value={zipValue}>
         </input>
         <button className='zip-form__button' type='submit'>Let's Go!</button>
+        {loading ?
+          <LoadingIndicator />
+        : null}
         {errorMessage ?
           <div className='zip-form__error' data-test='zipError'>
             {errorMessage}
@@ -75,9 +78,6 @@ class ZipForm extends Component {
           <div className='zip-form__info' data-test='zipInfo'>
             {infoMessage}
           </div>
-        : null}
-        {loading ?
-          <LoadingIndicator />
         : null}
       </form>
     );
