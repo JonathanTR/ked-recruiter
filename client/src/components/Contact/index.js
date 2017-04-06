@@ -13,6 +13,8 @@ class Contact extends Component {
   }
 
   handleClickedNextContact = () => {
+    const { action_network_id } = this.props.contact;
+    Client.updatePerson(action_network_id, {called: false});
     this.props.onFinished();
   }
 
@@ -56,7 +58,10 @@ class Contact extends Component {
                   onClick={this.handleContactCalled}>
             I spoke with this person
           </button>
-          <button className='contact__action' href='#' onClick={this.handleClickedNextContact}>
+          <button
+              className='contact__action'
+              href='#'
+              onClick={this.handleClickedNextContact}>
             Skip contact
           </button>
         </div>

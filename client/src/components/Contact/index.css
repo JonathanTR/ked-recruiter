@@ -49,8 +49,8 @@
   transition: background-color 150ms;
 }
 .contact__action--called:hover {
-  border: 2px solid #59FF87;
-  background-color: #59FF87;
+  border: 2px solid limegreen;
+  background-color: limegreen;
 }
 
 @media screen and (max-width:499px) {
